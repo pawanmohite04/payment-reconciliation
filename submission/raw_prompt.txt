@@ -1,0 +1,20 @@
+You are an expert Python engineer. Build and verify a complete, beginner-friendly payment reconciliation dashboard for the Onelab AI Fitness Assessment.
+
+The business problem: a payments platform records customer transactions immediately, while the bank settles funds 1–2 days later. At month end, platform transactions and bank settlements should reconcile, but some discrepancies exist. No source data is supplied, so generate deterministic sample datasets yourself.
+
+Use Python, Pandas and Streamlit. Create a clean project with app.py, reconciliation.py, generate_data.py, requirements.txt, README.md, data/ CSV files and automated tests.
+
+The generated October 2026 demo data MUST intentionally include:
+1. A transaction dated 31 October that settles on 1 November. For an October reconciliation, label it LATE_SETTLEMENT, not permanently missing.
+2. Three transactions with platform amounts 10.004 each and bank amounts 10.00 each. Each individual difference must be within a configurable per-row tolerance of 0.005, but the summed difference of 0.012 must exceed an aggregate tolerance of 0.01 and be flagged by the aggregate rounding check.
+3. A duplicate platform transaction ID. Flag it as DUPLICATE and count it only once in the unique transaction total.
+4. A refund with no matching original platform payment. Flag it as ORPHAN_REFUND even if the bank contains a matching refund line.
+Also include at least one normal matched transaction, one missing settlement and one bank settlement with no platform transaction.
+
+Required statuses: MATCHED, LATE_SETTLEMENT, AMOUNT_MISMATCH, DUPLICATE, MISSING_SETTLEMENT and ORPHAN_REFUND. Match using transaction ID and transaction type. Compare transaction month separately from settlement month. Use Python Decimal for monetary comparisons; do not rely on binary float equality. Validate columns, dates, amounts and currency. Keep the reporting month configurable.
+
+The Streamlit UI should show platform record count, unique platform transaction count, matched count, exception count, platform net amount, bank net amount in the selected month, month-end difference and aggregate rounding variance. Show transaction-level reconciliation, exception counts, unmatched bank entries, assumptions and CSV download buttons. Provide a way to generate or upload datasets.
+
+Write automated unit tests for normal matching, next-month settlement, aggregate-only rounding variance, duplicate platform record, orphan refund, missing settlement and unexpected bank entry. Run the tests, fix all failures, and report the actual test results. Include Windows PowerShell commands for setting up a virtual environment and running the app in VS Code.
+
+Document explicit assumptions and exactly three concise production limitations. Keep the code straightforward and explainable; do not add unnecessary infrastructure, APIs, databases or AI/ML models. Never claim a test or deployment succeeded unless it was actually run.
